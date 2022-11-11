@@ -1,26 +1,12 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="bg-fixed bg-cover" style="background-image: url(https://ik.imagekit.io/trashpossums/tico3/tico3Bg_jpBM_yAPj.png?ik-sdk-version=javascript-1.4.3&updatedAt=1667857726483)">
+  <NavBar/>
+  <Game/>
+</div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import Game from './components/TicO3.vue'
+import NavBar from './components/NavBar.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
