@@ -15,21 +15,21 @@
       <div
         class="flex items-start justify-center min-h-screen pt-24 text-center"
       >
+      
         <div
-          class="bg-white rounded-lg text-left overflow-hidden shadow-xl p-8 w-1/2"
+          class="bg-white rounded-lg text-left overflow-hidden shadow-xl justify-end p-8 w-1/2"
           role="dialog"
           ref="modal"
           aria-modal="true"
           aria-labelledby="modal-headline"
           @click.stop=""
         >
+        <button class="bg-white mb-10 hover:bg-gray-400 text-black rounded-lg"  @click="$emit('close')">X Close</button>
          <slot>This is a modal</slot>
-                        </div>
-                       
-                </div>
-                
+                  </div>                       
+               </div>                
             </div>
-             </transition>
+        </transition>
     </teleport>
 </template>
 <script setup>
