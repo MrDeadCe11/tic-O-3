@@ -51,76 +51,77 @@
         </div>
       </transition>
     </div>
-    <transition
-      enter-active-class="transition ease-out duration-300 transform"
-      enter-from-class="opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="transition ease-in duration-300 transform"
-      leave-from-class="opacity-100"
-      leave-to-class="opacity-0"
-    >
-      <div
-        class="board p-3 grid grid-cols-3 grid-rows-3 h-3/4 sm:w-1/2 w-3/4 m-auto mt-10 bg-fixed"
-     
-        v-show="gameStatus.started"
-        id="board"
+    <div class="board-container m-auto sm:w-3/4 sm:h-5/6 w-5/6 h-5/6">
+      <transition
+        enter-active-class="transition ease-out duration-300 transform"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition ease-in duration-300 transform"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
       >
         <div
-          class="cell flex border-b-4 border-r-4 h-auto align-middle justify-center border-white-900"
-          @click="handleClick"
-          id="0"
-          data-cell
-        ></div>
-        <div
-          class="cell flex border-b-4 border-r-4 h-auto border-white-900 align-middle justify-center"
-          @click="handleClick"
-          id="1"
-          data-cell
-        ></div>
-        <div
-          class="cell flex border-b-4 h-auto border-white-900 align-middle justify-center"
-          @click="handleClick"
-          id="2"
-          data-cell
-        ></div>
-        <div
-          class="cell flex border-b-4 border-r-4 h-auto border-white-900 align-middle justify-center"
-          @click="handleClick"
-          id="3"
-          data-cell
-        ></div>
-        <div
-          class="cell flex border-b-4 border-r-4 h-auto border-white-900 align-middle justify-center"
-          @click="handleClick"
-          id="4"
-          data-cell
-        ></div>
-        <div
-          class="cell flex border-b-4 h-auto border-white-900 align-middle justify-center"
-          @click="handleClick"
-          id="5"
-          data-cell
-        ></div>
-        <div
-          class="cell flex border-r-4 h-auto border-white-900 align-middle justify-center"
-          @click="handleClick"
-          id="6"
-          data-cell
-        ></div>
-        <div
-          class="cell flex border-r-4 h-auto border-white-900 align-middle justify-center"
-          @click="handleClick"
-          id="7"
-          data-cell
-        ></div>
-        <div
-          class="cell flex h-auto border-white-900 align-middle justify-center"
-          @click="handleClick"
-          id="8"
-          data-cell
-        ></div>
-      </div>
-    </transition>
+          class="board p-3 grid grid-cols-3 grid-rows-3 sm:h-3/4 sm:w-96 h-5/6 w-5/6 m-auto mt-10 bg-fixed"
+          v-show="gameStatus.started"
+          id="board"
+        >
+          <div
+            class="cell flex border-b-4 border-r-4 h-auto align-middle justify-center border-white-900"
+            @click="handleClick"
+            id="0"
+            data-cell
+          ></div>
+          <div
+            class="cell flex border-b-4 border-r-4 h-auto border-white-900 align-middle justify-center"
+            @click="handleClick"
+            id="1"
+            data-cell
+          ></div>
+          <div
+            class="cell flex border-b-4 h-auto border-white-900 align-middle justify-center"
+            @click="handleClick"
+            id="2"
+            data-cell
+          ></div>
+          <div
+            class="cell flex border-b-4 border-r-4 h-auto border-white-900 align-middle justify-center"
+            @click="handleClick"
+            id="3"
+            data-cell
+          ></div>
+          <div
+            class="cell flex border-b-4 border-r-4 h-auto border-white-900 align-middle justify-center"
+            @click="handleClick"
+            id="4"
+            data-cell
+          ></div>
+          <div
+            class="cell flex border-b-4 h-auto border-white-900 align-middle justify-center"
+            @click="handleClick"
+            id="5"
+            data-cell
+          ></div>
+          <div
+            class="cell flex border-r-4 h-auto border-white-900 align-middle justify-center"
+            @click="handleClick"
+            id="6"
+            data-cell
+          ></div>
+          <div
+            class="cell flex border-r-4 h-auto border-white-900 align-middle justify-center"
+            @click="handleClick"
+            id="7"
+            data-cell
+          ></div>
+          <div
+            class="cell flex h-auto border-white-900 align-middle justify-center"
+            @click="handleClick"
+            id="8"
+            data-cell
+          ></div>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -185,7 +186,7 @@ const checkChase = (cellId) => {
         return false;
       }
     } else {
-        activePlayer.playerOne.chaseCount = 0;
+      activePlayer.playerOne.chaseCount = 0;
       return false;
     }
   } else if (activePlayer.playerTwo.active) {
@@ -194,11 +195,10 @@ const checkChase = (cellId) => {
       if (activePlayer.playerTwo.chaseCount >= 2) {
         return true;
       } else {
-
         return false;
       }
     } else {
-        activePlayer.playerTwo.chaseCount= 0;
+      activePlayer.playerTwo.chaseCount = 0;
       return false;
     }
   }
@@ -227,13 +227,18 @@ const handleClick = (e) => {
     if (activePlayer.playerOne.active && !cell.playerOnePlayed) {
       cell.playerOnePlayed = true;
       activePlayer.playerOne.previousMove = cell.id;
-      e.target.innerHTML += `<div class='border-4 absolute mt-16 border-red-700 sm:w-32 w-24 h-1'>`;
+      const element = document.createElement("div")
+      const classes = ['border-4','absolute','mt-16','border-red-700','sm:w-24','w-24','h-1']
+      classes.forEach((el)=> element.classList.add(el));      
+      document.getElementById(id).appendChild(element);
       win = checkWin(cell.id);
     } else if (activePlayer.playerTwo && !cell.playerTwoPlayed) {
       cell.playerTwoPlayed = true;
       activePlayer.playerTwo.previousMove = cell.id;
-      e.target.innerHTML +=
-        "<div class='border-4 absolute mt-5 border-blue-700 w-1 sm:h-32 h-24'>";
+      const element =  document.createElement("div")
+        const classes = ['border-4','absolute','mt-5','border-blue-700','sm:h-24','h-24','w-1']
+      classes.forEach((el)=> element.classList.add(el));      
+      document.getElementById(id).appendChild(element);
       win = checkWin(cell.id);
     } else if (
       (activePlayer.playerTwo && cell.playerTwoPlayed) ||
@@ -286,8 +291,8 @@ const resetGame = () => {
     document.getElementById(cell.id).innerHTML = "";
   });
   gameCells = [];
-  activePlayer.playerOne.previousMove = '';
-  activePlayer.playerTwo. previousMove = ''
+  activePlayer.playerOne.previousMove = "";
+  activePlayer.playerTwo.previousMove = "";
   message.value = "";
   activePlayer.playerOne.active = false;
   activePlayer.playerTwo.active = false;

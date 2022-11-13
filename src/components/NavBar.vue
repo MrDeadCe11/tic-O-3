@@ -12,13 +12,12 @@
         leave-to-class="opacity-0 translate-y-10 translate-y-0 scale-95"> 
         <div class="fixed flex align-middle justify-center z-10 inset-0 overflow-y-auto bg-black bg-opacity-50"
         @click="showTheThing = false" v-if="showTheThing">
-        <div class="bg-blue-600 rounded-lg text-left h-auto overflow-hidden shadow-xl p-6 w-1/2">
+        <div class="bg-blue-600 rounded-lg text-left h-auto overflow-hidden shadow-xl p-6 w-3/4 sm:w-1/2">
         <div class="flex justify-end">       
         <button class="bg-blue-600 mb-10 hover:bg-blue-900 p-2 rounded-lg text-blue-200" 
         @click="showTheThing = false">X Close</button>
         </div>
         <h1 class="text-2xl bg-blue-600 text-center text-blue-200">The Rules:</h1>
-
         <ul class="list-disc">
         <li class="text-xl text-blue-200">This is a modified version of tic-tac-toe.</li>
         <li class="text-xl text-blue-200">Player one is the horizontal line and player two is the vertical line</li>
