@@ -250,16 +250,17 @@ const handleClick = (e) => {
     }
     if (win.ticOWin) {
       gameStatus.started = false;
-      message.value = `<div><h1 class="text-4xl">${
+      message.value = `<div><h1 class="flex rounded-lg justify-center text-4xl p-10 ${activePlayer.playerOne.active ? 'bg-red-400' : "bg-blue-400"}">${
         activePlayer.playerOne.active ? "Player One wins!" : "Player Two wins!"
-      }</h1><br/><button @click="startGame" class="border-black bg-red-600 p-2 rounded-lg">Reset Game</button></div>`;
+      }</h1><br/><button @click="startGame" class="border-black mt-1 bg-red-600 p-2 rounded-lg">Reset Game</button></div>`;
       showModal.value = true;
     } else if (win.chaseWin) {
-      message.value = `<div><h1 class="text-4xl">${
+      message.value = `<div class="flex p-1 justify-center ${activePlayer.playerOne.active ? 'bg-red-400' : "bg-blue-400"} rounded-lg">
+      <h1 class="text-4xl">${
         activePlayer.playerOne.active
           ? "Player TWO wins! NO CHASING!"
           : "Player ONE wins! NO CHASING!"
-      }</h1><br/><button @click="startGame" class="border-black bg-red-600 p-2 rounded-lg" >Reset Game</button></div>`;
+      }</h1></div><button @click="startGame" class="border-black bg-red-600 p-2 rounded-lg mt-1" >Reset Game</button>`;
       showModal.value = true;
       gameStatus.started = false;
     } else if (win.ticOWin == false && win.chaseWin == false) {

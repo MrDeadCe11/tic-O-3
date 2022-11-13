@@ -17,14 +17,14 @@
       >
       
         <div
-          class="bg-white rounded-lg text-left overflow-hidden shadow-xl justify-end p-8 w-1/2"
+          class="bg-blue-200 rounded-lg text-left overflow-hidden shadow-xl justify-end p-4 w-1/2"
           role="dialog"
           ref="modal"
           aria-modal="true"
           aria-labelledby="modal-headline"
           @click.stop=""
         >
-        <button class="bg-white mb-10 hover:bg-gray-400 text-black rounded-lg"  @click="$emit('close')">X Close</button>
+        <button class="top-1 left-0 mb-1 p-1 bg-blue-200 hover:bg-blue-400 text-black rounded-lg"  @click="$emit('close')">X Close</button>
          <slot>This is a modal</slot>
                   </div>                       
                </div>                
