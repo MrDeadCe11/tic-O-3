@@ -51,7 +51,7 @@
         </div>
       </transition>
     </div>
-    <div class="board-container m-auto sm:w-3/4 sm:h-5/6 w-5/6 h-3/4">
+    <div class="board-container m-auto sm:w-3/4 sm:h-5/6 w-5/6 h-4/6">
       <transition
         enter-active-class="transition ease-out duration-300 transform"
         enter-from-class="opacity-0"
@@ -66,55 +66,55 @@
           id="board"
         >
           <div
-            class="cell flex border-b-4 border-r-4 h-auto align-middle justify-center border-white-900"
+            class="cell grid grid-cols-1 grid-rows-1 border-b-4 border-r-4 w-auto h-auto align-middle justify-center border-white-900"
             @click="handleClick"
             id="0"
             data-cell
           ></div>
           <div
-            class="cell flex border-b-4 border-r-4 h-auto border-white-900 align-middle justify-center"
+            class="cell flex border-b-4 border-r-4 h-auto w-auto  border-white-900 align-middle justify-center"
             @click="handleClick"
             id="1"
             data-cell
           ></div>
           <div
-            class="cell flex border-b-4 h-auto border-white-900 align-middle justify-center"
+            class="cell flex border-b-4 h-auto w-auto border-white-900 align-middle justify-center"
             @click="handleClick"
             id="2"
             data-cell
           ></div>
           <div
-            class="cell flex border-b-4 border-r-4 h-auto border-white-900 align-middle justify-center"
+            class="cell flex border-b-4 border-r-4 h-auto w-auto border-white-900 align-middle justify-center"
             @click="handleClick"
             id="3"
             data-cell
           ></div>
           <div
-            class="cell flex border-b-4 border-r-4 h-auto border-white-900 align-middle justify-center"
+            class="cell flex border-b-4 border-r-4 h-auto w-auto border-white-900 align-middle justify-center"
             @click="handleClick"
             id="4"
             data-cell
           ></div>
           <div
-            class="cell flex border-b-4 h-auto border-white-900 align-middle justify-center"
+            class="cell flex border-b-4 h-auto w-auto border-white-900 align-middle justify-center"
             @click="handleClick"
             id="5"
             data-cell
           ></div>
           <div
-            class="cell flex border-r-4 h-auto border-white-900 align-middle justify-center"
+            class="cell flex border-r-4 h-auto w-auto border-white-900 align-middle justify-center"
             @click="handleClick"
             id="6"
             data-cell
           ></div>
           <div
-            class="cell flex border-r-4 h-auto border-white-900 align-middle justify-center"
+            class="cell flex border-r-4 h-auto w-auto border-white-900 align-middle justify-center"
             @click="handleClick"
             id="7"
             data-cell
           ></div>
           <div
-            class="cell flex h-auto border-white-900 align-middle justify-center"
+            class="cell flex h-auto w-auto border-white-900 align-middle justify-center"
             @click="handleClick"
             id="8"
             data-cell
@@ -228,7 +228,7 @@ const handleClick = (e) => {
       cell.playerOnePlayed = true;
       activePlayer.playerOne.previousMove = cell.id;
       const element = document.createElement("div")
-      const classes = ['border-4','absolute','mt-16','border-red-700','sm:w-24','w-24','h-1']
+      const classes = ['absolute','border-4', 'border-red-700','place-self-center','col-span-1','sm:w-24','w-24','h-1']
       classes.forEach((el)=> element.classList.add(el));      
       document.getElementById(id).appendChild(element);
       win = checkWin(cell.id);
@@ -236,7 +236,7 @@ const handleClick = (e) => {
       cell.playerTwoPlayed = true;
       activePlayer.playerTwo.previousMove = cell.id;
       const element =  document.createElement("div")
-        const classes = ['border-4','absolute','mt-5','border-blue-700','sm:h-24','h-24','w-1']
+        const classes = ['absolute','border-4','place-self-center', 'col-span-1', 'row-span-1','border-blue-700','sm:h-24','h-24','w-1']
       classes.forEach((el)=> element.classList.add(el));      
       document.getElementById(id).appendChild(element);
       win = checkWin(cell.id);
@@ -252,7 +252,7 @@ const handleClick = (e) => {
       gameStatus.started = false;
       message.value = `<div><h1 class="text-4xl">${
         activePlayer.playerOne.active ? "Player One wins!" : "Player Two wins!"
-      }</h1><br/><button @click="startGame" class="border-black bg-red-600 p-2 rounded-lg" >Reset Game</button></div>`;
+      }</h1><br/><button @click="startGame" class="border-black bg-red-600 p-2 rounded-lg">Reset Game</button></div>`;
       showModal.value = true;
     } else if (win.chaseWin) {
       message.value = `<div><h1 class="text-4xl">${
