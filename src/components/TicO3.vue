@@ -51,7 +51,7 @@
         </div>
       </transition>
     </div>
-    <div class="board-container m-auto sm:w-3/4 sm:h-5/6 w-5/6 h-4/6">
+    <div class="board-container m-auto sm:w-3/4 sm:h-5/6 w-screen h-4/6">
       <transition
         enter-active-class="transition ease-out duration-300 transform"
         enter-from-class="opacity-0"
