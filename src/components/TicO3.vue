@@ -255,7 +255,7 @@ const handleClick = (e) => {
       }</h1><br/><button @click="startGame" class="border-black mt-1 bg-red-600 p-2 rounded-lg">Reset Game</button></div>`;
       showModal.value = true;
     } else if (win.chaseWin) {
-      message.value = `<div class="flex p-1 justify-center ${activePlayer.playerOne.active ? 'bg-red-400' : "bg-blue-400"} rounded-lg">
+      message.value = `<div class="flex p-1 justify-center ${activePlayer.playerOne.active ? 'bg-blue-400' : "bg-red-400"} rounded-lg">
       <h1 class="text-4xl">${
         activePlayer.playerOne.active
           ? "Player TWO wins! NO CHASING!"
