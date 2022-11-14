@@ -144,6 +144,7 @@ let activePlayer = reactive({
     chaseCount: 0,
   },
 });
+let win = reactive({chaseWin: false, ticOWin: false});
 let showModal = ref(false);
 let message = ref(null);
 const WINNING_COMBINATIONS = [
@@ -166,11 +167,9 @@ class GameCell {
 
 const playerToggle = () => {
   if (activePlayer.playerOne.active) {
-    console.log("player two turn!");
     activePlayer.playerOne.active = false;
     activePlayer.playerTwo.active = true;
   } else {
-    console.log("player one turn!");
     activePlayer.playerOne.active = true;
     activePlayer.playerTwo.active = false;
   }
@@ -204,9 +203,7 @@ const checkChase = (cellId) => {
   }
 };
 
-const checkWin = (cellId) => {
-  let win = { ticOWin: false, chaseWin: false };
-  win.chaseWin = checkChase(cellId);
+const checkWin = () => {
   if (!win.chaseWin) {
     win.ticOWin = WINNING_COMBINATIONS.some((combination) => {
       return combination.every((index) => {
@@ -220,11 +217,12 @@ const checkWin = (cellId) => {
 };
 
 const handleClick = (e) => {
-  if (gameStatus.started) {
-    let win;
+  if (gameStatus.started) { 
     const id = e.target.id;
     const cell = gameCells.filter((cell) => cell.id == id)[0];
-    if (activePlayer.playerOne.active && !cell.playerOnePlayed) {
+    console.log("player played: ", cell, activePlayer);
+    win.chaseWin = checkChase(id);
+    if (activePlayer.playerOne.active && !cell.playerOnePlayed && !win.chaseWin) {
       cell.playerOnePlayed = true;
       activePlayer.playerOne.previousMove = cell.id;
       const element = document.createElement("div")
@@ -232,7 +230,7 @@ const handleClick = (e) => {
       classes.forEach((el)=> element.classList.add(el));      
       document.getElementById(id).appendChild(element);
       win = checkWin(cell.id);
-    } else if (activePlayer.playerTwo && !cell.playerTwoPlayed) {
+    } else if (activePlayer.playerTwo && !cell.playerTwoPlayed && !win.chaseWin) {
       cell.playerTwoPlayed = true;
       activePlayer.playerTwo.previousMove = cell.id;
       const element =  document.createElement("div")
@@ -241,12 +239,18 @@ const handleClick = (e) => {
       document.getElementById(id).appendChild(element);
       win = checkWin(cell.id);
     } else if (
-      (activePlayer.playerTwo && cell.playerTwoPlayed) ||
-      (activePlayer.playerOne && cell.playerOnePlayed)
+      (activePlayer.playerTwo && cell.playerTwoPlayed && !win.chaseWin) ||
+      (activePlayer.playerOne && cell.playerOnePlayed && !win.chaseWin)
     ) {
       message.value = "You have already played this square!";
       showModal.value = true;
-      return;
+    }  else if (
+     (activePlayer.playerTwo && !cell.playerTwoPlayed && win.chaseWin) ||
+     (activePlayer.playerOne && !cell.playerOnePlayed && win.chaseWin)
+     ) {
+      message.value = `<div class="flex p-1 justify-center ${activePlayer.playerOne.active ? 'bg-blue-400' : "bg-red-400"} rounded-lg">
+      <h1 class="text-2xl">Chasing is not allowed.  Make a different move. </h1></div>`;
+      showModal.value = true;
     }
     if (win.ticOWin) {
       gameStatus.started = false;
@@ -254,15 +258,6 @@ const handleClick = (e) => {
         activePlayer.playerOne.active ? "Player One wins!" : "Player Two wins!"
       }</h1><br/><button @click="startGame" class="border-black mt-1 bg-red-600 p-2 rounded-lg">Reset Game</button></div>`;
       showModal.value = true;
-    } else if (win.chaseWin) {
-      message.value = `<div class="flex p-1 justify-center ${activePlayer.playerOne.active ? 'bg-blue-400' : "bg-red-400"} rounded-lg">
-      <h1 class="text-4xl">${
-        activePlayer.playerOne.active
-          ? "Player TWO wins! NO CHASING!"
-          : "Player ONE wins! NO CHASING!"
-      }</h1></div><button @click="startGame" class="border-black bg-red-600 p-2 rounded-lg mt-1" >Reset Game</button>`;
-      showModal.value = true;
-      gameStatus.started = false;
     } else if (win.ticOWin == false && win.chaseWin == false) {
       playerToggle();
       return;
