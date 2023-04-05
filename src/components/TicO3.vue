@@ -220,7 +220,6 @@ const handleClick = (e) => {
   if (gameStatus.started) { 
     const id = e.target.id;
     const cell = gameCells.filter((cell) => cell.id == id)[0];
-    console.log("player played: ", cell, activePlayer);
     win.chaseWin = checkChase(id);
     if (activePlayer.playerOne.active && !cell.playerOnePlayed && !win.chaseWin) {
       cell.playerOnePlayed = true;
@@ -244,6 +243,7 @@ const handleClick = (e) => {
     ) {
       message.value = "You have already played this square!";
       showModal.value = true;
+      return;
     }  else if (
      (activePlayer.playerTwo && !cell.playerTwoPlayed && win.chaseWin) ||
      (activePlayer.playerOne && !cell.playerOnePlayed && win.chaseWin)
@@ -251,6 +251,7 @@ const handleClick = (e) => {
       message.value = `<div class="flex p-1 justify-center ${activePlayer.playerOne.active ? 'bg-blue-400' : "bg-red-400"} rounded-lg">
       <h1 class="text-2xl">Chasing is not allowed.  Make a different move. </h1></div>`;
       showModal.value = true;
+      return;
     }
     if (win.ticOWin) {
       gameStatus.started = false;
@@ -263,7 +264,7 @@ const handleClick = (e) => {
       return;
     }
   } else {
-    console.log("game hasn't started");
+    console.log("game hasn't started.");
   }
 };
 const startGame = () => {
